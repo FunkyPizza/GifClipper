@@ -13,18 +13,17 @@
 
 # Trim videos
  
-![1](https://github.com/FunkyPizza/GifClipper/assets/31694150/19978374-5abb-4e83-9e66-b71b3ee93004)
+![1](https://github.com/FunkyPizza/GifClipper/assets/31694150/e5f15211-2b44-42c0-b7ad-dca34f4c0ba3)
 
  
 # Crop videos
  
-![2](https://github.com/FunkyPizza/GifClipper/assets/31694150/7adcbb46-9aa0-4a34-bb4c-e5f84f8e1f96)
+ ![2](https://github.com/FunkyPizza/GifClipper/assets/31694150/8e5eeeac-7eae-4de7-8575-d1de50f8fc6b)
 
 
 # Settings & export to gif
 
-![3](https://github.com/FunkyPizza/GifClipper/assets/31694150/96aa5f98-6cc5-4dbd-b45f-4afe36946e8d)
-
+![3](https://github.com/FunkyPizza/GifClipper/assets/31694150/2026685b-320e-4c69-91fa-0184d2b03390)
 
 
 # Licence
