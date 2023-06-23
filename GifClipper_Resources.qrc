@@ -1,0 +1,31 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>Assets/Icons/icons8_add_file_64px.png</file>
+        <file>Assets/Icons/icons8_add_folder_64px.png</file>
+        <file>Assets/Icons/icons8_checkmark_64px.png</file>
+        <file>Assets/Icons/icons8_delete_64px.png</file>
+        <file>Assets/Icons/icons8_export_64px.png</file>
+        <file>Assets/Icons/icons8_fast_forward_64px.png</file>
+        <file>Assets/Icons/icons8_file_64px.png</file>
+        <file>Assets/Icons/icons8_folder_64px.png</file>
+        <file>Assets/Icons/icons8_gif_64px.png</file>
+        <file>Assets/Icons/icons8_jog_forward_64px.png</file>
+        <file>Assets/Icons/icons8_jog_reverse_64px.png</file>
+        <file>Assets/Icons/icons8_opened_folder_64px.png</file>
+        <file>Assets/Icons/icons8_pause_64px.png</file>
+        <file>Assets/Icons/icons8_play_64px.png</file>
+        <file>Assets/Icons/icons8_resume_button_64px.png</file>
+        <file>Assets/Icons/icons8_rewind_64px.png</file>
+        <file>Assets/Icons/icons8_settings_64px.png</file>
+        <file>Assets/Icons/icons8_shutdown_64px.png</file>
+        <file>Assets/Icons/icons8_tune_64px.png</file>
+        <file>Assets/Icons/icons8_video_file_64px.png</file>
+        <file>Assets/Icons/icons8_video_playlist_64px.png</file>
+        <file>Assets/Icons/icons8_repeat_64px.png</file>
+        <file>Assets/Icons/icons8_norepeat_64px.png</file>
+        <file>Assets/Icons/icons8_5sec_backwards_64px.png</file>
+        <file>Assets/Icons/icons8_fast_5sec_forward_64px.png</file>
+        <file>Assets/gifclipper_icon.ico</file>
+    </qresource>
+    <qresource prefix="/"/>
+</RCC>
