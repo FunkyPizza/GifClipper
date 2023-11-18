@@ -55,7 +55,9 @@ void GifC_MainWindow::setupSettings_Ui()
 
 void GifC_MainWindow::launchConversion()
 {
-    statusBar()->showMessage(tr("Starting conversion."), 2000);
+    statusBar()->showMessage(tr("Converting, please wait ..."), 0);
+    statusBar()->repaint();
+
     bool bIsSuccess = false;
     if (m_videoPlayer) {
         m_videoPlayer->pause();

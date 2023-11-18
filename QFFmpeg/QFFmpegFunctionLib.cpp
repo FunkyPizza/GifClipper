@@ -2,8 +2,10 @@
 #include "qpoint.h"
 #include "qsize.h"
 #include <QDebug>
+#include <QProcess>
 #include <QString>
 #include <cstdlib>
+#include <direct.h>
 #include <fstream>
 #include <iostream>
 
@@ -39,7 +41,11 @@ bool QFFmpegFunctionLib::trimVideoToGif(const QString &inputFilename,
     std::string cropX = std::to_string(cropTopLeft.x());
     std::string cropY = std::to_string(cropTopLeft.y());
 
-    std::string commandConvert = "ffmpeg -y";
+    char cwd[256];
+    getcwd(cwd, 256);
+    std::string ffmpegPath = "\"" + std::string(cwd) + "\\ffmpeg.exe\"";
+
+    std::string commandConvert = ffmpegPath + " -y";                // ffmpeg exe
     commandConvert += " -i \"" + inputFilename.toUtf8() + "\"";     // input file
     commandConvert += " -ss " + std::to_string(startTrim);          // start trim
     commandConvert += " -t " + std::to_string(endTrim - startTrim); // duration
@@ -52,16 +58,18 @@ bool QFFmpegFunctionLib::trimVideoToGif(const QString &inputFilename,
     commandConvert += ",split[o1] [o2];[o1] palettegen[p]; [o2] fifo [o3];[o3] [p] paletteuse\"";
     commandConvert += " \"" + outputFilename.toUtf8() + "\""; // output file
 
-    qDebug() << "Video conversion starting.";
-    qDebug() << "Input: " + inputFilename;
-    qDebug() << "Output: " + outputFilename;
-    qDebug() << "Trim: " + std::to_string(startTrim) + " to: " + std::to_string(endTrim);
-    qDebug() << "Resolution: " + outputResolution;
-    qDebug() << "FrameRate: " + outputFrameRate;
-    qDebug() << "Command: " + commandConvert;
+    qDebug().noquote() << "Video conversion starting.";
+    qDebug().noquote() << "FFMPEG Path: " + ffmpegPath;
+    qDebug().noquote() << "Input: " + inputFilename;
+    qDebug().noquote() << "Output: " + outputFilename;
+    qDebug().noquote() << "Trim: " + std::to_string(startTrim) + " to: " + std::to_string(endTrim);
+    qDebug().noquote() << "Resolution: " + outputResolution;
+    qDebug().noquote() << "FrameRate: " + outputFrameRate;
+    qDebug().noquote() << "Command: " + commandConvert;
 
     // Execute the command
-    int ret = system(commandConvert.c_str());
+    //int ret = system(commandConvert.c_str()); //Escape characters don't get escaped?=
+    int ret = QProcess::execute(QString::fromStdString(commandConvert));
 
     if (ret != 0) {
         qDebug() << "FFMPEG command failed.";
