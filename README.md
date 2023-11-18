@@ -32,7 +32,7 @@ Distributed under the GNU GPL V3.0 License. See `LICENSE.txt` for more informati
 
 # Release log
 
-**GifClipper - Release 0.2**
+**Release 0.2**
 
 Fixed issue where GifClipper could use any FFMPEG executable available on the running machine.
 FFMPEG will now run without showing a window
