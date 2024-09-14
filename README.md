@@ -13,17 +13,17 @@
 
 # Trim videos
  
-![1](https://github.com/FunkyPizza/GifClipper/assets/31694150/e5f15211-2b44-42c0-b7ad-dca34f4c0ba3)
+![1](https://github.com/user-attachments/assets/fd78b12f-8290-4822-969b-cf88784c2610)
 
  
 # Crop videos
  
- ![2](https://github.com/FunkyPizza/GifClipper/assets/31694150/8e5eeeac-7eae-4de7-8575-d1de50f8fc6b)
+![2](https://github.com/user-attachments/assets/6282fec2-24e9-4ba0-8f06-24cd2a7fbd29)
 
 
 # Settings & export to gif
 
-![3](https://github.com/FunkyPizza/GifClipper/assets/31694150/2026685b-320e-4c69-91fa-0184d2b03390)
+![3](https://github.com/user-attachments/assets/da8cdb24-250a-4682-a95a-0cc5f5d9d853)
 
 
 # Licence
@@ -43,6 +43,7 @@ __________
 - Fixed issue where GifClipper could use any FFMPEG executable available on the running machine.
 - FFMPEG will now run without showing a window
 - Fixed issue where the status bar would not display information during conversion.
+
 
 **Note:** This release uses ffmpeg.exe.
 __________
