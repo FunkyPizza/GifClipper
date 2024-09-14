@@ -31,7 +31,7 @@
 Distributed under the GNU GPL V3.0 License. See `LICENSE.txt` for more information.
 
 # Release log
-**GifClipper - Release 0.3**
+**Release 0.3**
 
 - GifClipper can now export the current edit as a MP4 video (all Export Settings still apply)
 - Added 'Quality' export settings to create smaller but less pretty exports (old gif export settings are equivalent to the current 'High')
