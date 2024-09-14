@@ -1,5 +1,8 @@
 @echo off
 
+REM Enable Delayed Variable Expansion
+SETLOCAL ENABLEDELAYEDEXPANSION
+
 REM Check project executable
 set PROJECT=GifClipper
 set DIR_PROJECT=%~dp0
@@ -16,17 +19,23 @@ IF exist "%DIR_EXE%" (
 )
 
 REM Ask the user for build number
-set /p BUILD_NUMBER=Please enter build number (ex: 0,1, 5, 150):
+set /p BUILD_NUMBER="Please enter build number (ex: 0,1, 5, 150): "
 
 REM Check deploy directory, ensure it exists and is empty
 set DIR_DEPLOY=%DIR_PROJECT%..\Packages\%PROJECT%_%BUILD_NUMBER%
 IF exist "%DIR_DEPLOY%" (
     REM Ask the user if the directory should be removed
-    set /p REMOVE_DIRECTORY="Deploy directory already exists, remove it and continue? (Y/N)": 
+    set /p REMOVE_DIRECTORY="Deploy directory already exists, remove it and continue? (y/n): "
+    echo You entered: "!REMOVE_DIRECTORY!"
     REM Remove the directory if the user chooses to do so
-    IF /i "%REMOVE_DIRECTORY%" EQU "Y" (
+    IF /i "!REMOVE_DIRECTORY!"=="y" (
         echo "Cleaning deploy directory..."
         rd /s /q "%DIR_DEPLOY%"
+        if exist "%DIR_DEPLOY%" (
+            echo "Failed to remove the deploy directory. Exiting ..."
+            pause
+            exit /b
+        )
     ) ELSE (
         echo "The deploy directory needs to be empty. Exiting ..."
         pause

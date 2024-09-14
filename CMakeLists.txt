@@ -74,12 +74,16 @@ set(PROJECT_SOURCES
         ${TS_FILES}
 )
 
-
+if (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+    enable_language("RC")
+    set(APP_ICON_RESOURCE_WINDOWS "${CMAKE_CURRENT_SOURCE_DIR}/Assets/gifclipper_icon.rc")
+endif()
 
 if(QT_VERSION_MAJOR EQUAL 6)
     qt_add_executable(GifClipper
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
+        ${APP_ICON_RESOURCE_WINDOWS}
     )
 endif()
 
@@ -105,6 +109,7 @@ install(TARGETS GifClipper
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
+
 
 if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(GifClipper)

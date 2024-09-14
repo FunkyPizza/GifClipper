@@ -25,7 +25,9 @@
         <file>Assets/Icons/icons8_norepeat_64px.png</file>
         <file>Assets/Icons/icons8_5sec_backwards_64px.png</file>
         <file>Assets/Icons/icons8_fast_5sec_forward_64px.png</file>
+        <file>Assets/Icons/icons8-sending-video-frames-64.png</file>
         <file>Assets/gifclipper_icon.ico</file>
+        <file>Assets/Icons/icons8-mpg-64.png</file>
     </qresource>
     <qresource prefix="/"/>
 </RCC>

@@ -51,9 +51,16 @@ void GifC_MainWindow::setupSettings_Ui()
     fpsComboBox->addItem(QString::number(QFFmpegFunctionLib::VideoFrameRateAsFloat(VideoFrameRate::F_20)));
     fpsComboBox->addItem(QString::number(QFFmpegFunctionLib::VideoFrameRateAsFloat(VideoFrameRate::F_30)));
     fpsComboBox->setCurrentIndex(2);
+
+    QComboBox *qualityComboBox = findChild<QComboBox *>("convert_quality_box");
+    qualityComboBox->clear();
+    qualityComboBox->addItem(QFFmpegFunctionLib::VideoQualityAsString(VideoQuality::Q_Low));
+    qualityComboBox->addItem(QFFmpegFunctionLib::VideoQualityAsString(VideoQuality::Q_Normal));
+    qualityComboBox->addItem(QFFmpegFunctionLib::VideoQualityAsString(VideoQuality::Q_High));
+    qualityComboBox->setCurrentIndex(1);
 }
 
-void GifC_MainWindow::launchConversion()
+void GifC_MainWindow::launchConversion(bool const bSaveAsVideo)
 {
     statusBar()->showMessage(tr("Converting, please wait ..."), 0);
     statusBar()->repaint();
@@ -68,8 +75,12 @@ void GifC_MainWindow::launchConversion()
             QString timestampString = currentDateTime.toString("yyyyMMdd_hhmmss");
 
             QString inFile = mediaInfo->filename;
-            QString outFile = inFile.split('.')[0] + "_" + timestampString + ".gif";
-
+            QString outFile;
+            if (bSaveAsVideo) {
+                outFile = inFile.split('.')[0] + "_" + timestampString + ".mp4";
+            } else {
+                outFile = inFile.split('.')[0] + "_" + timestampString + ".gif";
+            }
             // Dividing by 1000 to go from milliseconds to seconds
             float startTrim = float(m_cropTimeline->getRangeLow()) / 1000.F;
             float endTrim = float(m_cropTimeline->getRangeHigh()) / 1000.F;
@@ -84,16 +95,30 @@ void GifC_MainWindow::launchConversion()
 
             QComboBox *resComboBox = findChild<QComboBox *>("convert_res_box");
             QComboBox *fpsComboBox = findChild<QComboBox *>("convert_fps_box");
+            QComboBox *qualityComboBox = findChild<QComboBox *>("convert_quality_box");
 
             QFFmpegFunctionLib FFmpegLib;
-            bIsSuccess = FFmpegLib.trimVideoToGif(inFile,
-                                                  outFile,
-                                                  startTrim,
-                                                  endTrim,
-                                                  cropSize,
-                                                  cropPos,
-                                                  resComboBox->currentText().toInt(),
-                                                  fpsComboBox->currentText().toFloat());
+            if (bSaveAsVideo) {
+                bIsSuccess = FFmpegLib.trimVideoToMP4(inFile,
+                                                      outFile,
+                                                      startTrim,
+                                                      endTrim,
+                                                      cropSize,
+                                                      cropPos,
+                                                      resComboBox->currentText().toInt(),
+                                                      fpsComboBox->currentText().toFloat(),
+                                                      qualityComboBox->currentIndex());
+            } else {
+                bIsSuccess = FFmpegLib.trimVideoToGif(inFile,
+                                                      outFile,
+                                                      startTrim,
+                                                      endTrim,
+                                                      cropSize,
+                                                      cropPos,
+                                                      resComboBox->currentText().toInt(),
+                                                      fpsComboBox->currentText().toFloat(),
+                                                      qualityComboBox->currentIndex());
+            }
         }
     } else {
         qDebug() << "SetupPlayer: Invalid VideoPlayer.";
@@ -260,7 +285,12 @@ void GifC_MainWindow::on_Player_CropEnd_released()
 
 void GifC_MainWindow::on_convertBtn_released()
 {
-    launchConversion();
+    launchConversion(false);
+}
+
+void GifC_MainWindow::on_exportVidBtn_released()
+{
+    launchConversion(true);
 }
 
 void GifC_MainWindow::on_Player_Loop_released()

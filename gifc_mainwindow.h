@@ -45,9 +45,11 @@ private slots:
 
     void on_convertBtn_released();
 
+    void on_exportVidBtn_released();
+
 private:
     void setupSettings_Ui();
-    void launchConversion();
+    void launchConversion(bool const bSaveAsVideo);
 
     void onCurrentPositionChanged_Ui(unsigned int const Position);
     void onCursorValueChanged_Ui();
