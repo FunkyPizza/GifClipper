@@ -96,12 +96,24 @@ bool QFFmpegFunctionLib::trimVideoToMP4(const QString &inputFilename,
 {
     // Command string
     std::string outputResolution = std::to_string(Resolution);
+    if (Resolution % 2 != 0) {
+        // Ensure resolution is divisible by 2
+        outputResolution = std::to_string(Resolution + 1);
+    }
     std::string outputFrameRate = std::to_string(FrameRate);
     std::string outputCRF = VideoQualityToVideoCRFString(static_cast<VideoQuality>(Quality)).toStdString();
     std::string outputPreset = VideoQualityToVideoPresetString(static_cast<VideoQuality>(Quality)).toStdString();
 
     std::string cropWidth = std::to_string(cropSize.width());
+    if (cropSize.width() % 2 != 0) {
+        // Ensure resolution is divisible by 2
+        cropWidth = std::to_string(cropSize.width() + 1);
+    }
     std::string cropHeight = std::to_string(cropSize.height());
+    if (cropSize.height() % 2 != 0) {
+        // Ensure resolution is divisible by 2
+        cropHeight = std::to_string(cropSize.height() + 1);
+    }
     std::string cropX = std::to_string(cropTopLeft.x());
     std::string cropY = std::to_string(cropTopLeft.y());
 
