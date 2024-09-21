@@ -71,6 +71,17 @@ set(PROJECT_SOURCES
         #FFMPEG
         QFFmpeg/qffmpegfunctionlib.h
         QFFmpeg/qffmpegfunctionlib.cpp
+        QFFmpeg/TranscoderFactory.h
+        QFFmpeg/TranscoderInterface.h
+        QFFmpeg/TranscoderQualityStatics.h
+        QFFmpeg/Transcoders/GifTranscoder.h
+        QFFmpeg/Transcoders/GifTranscoder.cpp
+        QFFmpeg/Transcoders/GifCmdTranscoder.h
+        QFFmpeg/Transcoders/GifCmdTranscoder.cpp
+        QFFmpeg/Transcoders/MP4Transcoder.h
+        QFFmpeg/Transcoders/MP4Transcoder.cpp
+        QFFmpeg/Transcoders/MP4CmdTranscoder.h
+        QFFmpeg/Transcoders/MP4CmdTranscoder.cpp
         ${TS_FILES}
 )
 

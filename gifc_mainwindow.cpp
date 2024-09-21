@@ -4,6 +4,7 @@
 #include "QSimpleTimeline.h"
 #include "QVideoPlayer.h"
 #include "QVideoPlayerWidget.h"
+#include <QCheckBox>
 #include <QDropEvent>
 #include <QFileDialog>
 #include <QMimeData>
@@ -96,29 +97,31 @@ void GifC_MainWindow::launchConversion(bool const bSaveAsVideo)
             QComboBox *resComboBox = findChild<QComboBox *>("convert_res_box");
             QComboBox *fpsComboBox = findChild<QComboBox *>("convert_fps_box");
             QComboBox *qualityComboBox = findChild<QComboBox *>("convert_quality_box");
+            QCheckBox *useCMDTranscoder = findChild<QCheckBox *>("check_cmdtranscoder");
 
             QFFmpegFunctionLib FFmpegLib;
+            TranscoderFormat OutputFormat;
             if (bSaveAsVideo) {
-                bIsSuccess = FFmpegLib.trimVideoToMP4(inFile,
-                                                      outFile,
-                                                      startTrim,
-                                                      endTrim,
-                                                      cropSize,
-                                                      cropPos,
-                                                      resComboBox->currentText().toInt(),
-                                                      fpsComboBox->currentText().toFloat(),
-                                                      qualityComboBox->currentIndex());
+                OutputFormat = TranscoderFormat::MP4;
+                if (useCMDTranscoder->isChecked()) {
+                    OutputFormat = TranscoderFormat::MP4_CMD;
+                }
             } else {
-                bIsSuccess = FFmpegLib.trimVideoToGif(inFile,
-                                                      outFile,
-                                                      startTrim,
-                                                      endTrim,
-                                                      cropSize,
-                                                      cropPos,
-                                                      resComboBox->currentText().toInt(),
-                                                      fpsComboBox->currentText().toFloat(),
-                                                      qualityComboBox->currentIndex());
+                OutputFormat = TranscoderFormat::GIF;
+                if (useCMDTranscoder->isChecked()) {
+                    OutputFormat = TranscoderFormat::GIF_CMD;
+                }
             }
+            bIsSuccess = FFmpegLib.transcodeFile(OutputFormat,
+                                                 inFile,
+                                                 outFile,
+                                                 startTrim,
+                                                 endTrim,
+                                                 cropSize,
+                                                 cropPos,
+                                                 resComboBox->currentText().toInt(),
+                                                 fpsComboBox->currentText().toFloat(),
+                                                 qualityComboBox->currentIndex());
         }
     } else {
         qDebug() << "SetupPlayer: Invalid VideoPlayer.";

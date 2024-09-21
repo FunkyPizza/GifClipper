@@ -2,7 +2,9 @@
 #define QFFMPEGFUNCTIONLIB_H
 
 #include <QString>
+#include "TranscoderFactory.h"
 
+class TranscoderInterface;
 class QSize;
 class QPoint;
 
@@ -15,26 +17,34 @@ class QFFmpegFunctionLib
 public:
     QFFmpegFunctionLib();
 
-    bool trimVideoToGif(const QString &inputFilename,
-                        const QString &outputFilename,
-                        float startTrim,
-                        float endTrim,
-                        QSize cropSize,
-                        QPoint cropTopLeft,
-                        int Resolution,
-                        float FrameRate,
-                        int Quality);
+    bool transcodeFile(const TranscoderFormat OutputFormat,
+                       const QString &inputFilename,
+                       const QString &outputFilename,
+                       float startTrim,
+                       float endTrim,
+                       QSize cropSize,
+                       QPoint cropTopLeft,
+                       int Resolution,
+                       float FrameRate,
+                       int Quality);
 
-    bool trimVideoToMP4(const QString &inputFilename,
-                        const QString &outputFilename,
-                        float startTrim,
-                        float endTrim,
-                        QSize cropSize,
-                        QPoint cropTopLeft,
-                        int Resolution,
-                        float FrameRate,
-                        int Quality);
-
+    /* ==== Display string for UI ==== */
+    static QString VideoQualityAsString(VideoQuality Quality)
+    {
+        QString outString;
+        switch (Quality) {
+        case VideoQuality::Q_Low:
+            outString = QString("Low");
+            break;
+        case VideoQuality::Q_Normal:
+            outString = QString("Normal");
+            break;
+        case VideoQuality::Q_High:
+            outString = QString("High");
+            break;
+        }
+        return outString;
+    };
     static float VideoResolutionAsFloat(VideoResolution Resolution)
     {
         float outResolution = 320;
@@ -78,91 +88,6 @@ public:
 
         return outFrameRate;
     };
-    static QString VideoQualityAsString(VideoQuality Quality)
-    {
-        QString outString;
-        switch (Quality) {
-        case VideoQuality::Q_Low:
-            outString = QString("Low");
-            break;
-        case VideoQuality::Q_Normal:
-            outString = QString("Normal");
-            break;
-        case VideoQuality::Q_High:
-            outString = QString("High");
-            break;
-        }
-
-        return outString;
-    }
-    static QString VideoQualityToVideoCRFString(VideoQuality Quality)
-    {
-        QString outString;
-        switch (Quality) {
-        case VideoQuality::Q_Low:
-            outString = QString("28");
-            break;
-        case VideoQuality::Q_Normal:
-            outString = QString("23");
-            break;
-        case VideoQuality::Q_High:
-            outString = QString("20");
-            break;
-        }
-
-        return outString;
-    }
-    static QString VideoQualityToVideoPresetString(VideoQuality Quality)
-    {
-        QString outString;
-        switch (Quality) {
-        case VideoQuality::Q_Low:
-            outString = QString("veryfast");
-            break;
-        case VideoQuality::Q_Normal:
-            outString = QString("medium");
-            break;
-        case VideoQuality::Q_High:
-            outString = QString("slow");
-            break;
-        }
-
-        return outString;
-    }
-    static QString VideoQualityToGifDitherString(VideoQuality Quality)
-    {
-        QString outString;
-        switch (Quality) {
-        case VideoQuality::Q_Low:
-            outString = QString("dither=none");
-            break;
-        case VideoQuality::Q_Normal:
-            outString = QString("dither=bayer:bayer_scale=5");
-            break;
-        case VideoQuality::Q_High:
-            outString = QString("dither=bayer:bayer_scale=3");
-            break;
-        }
-
-        return outString;
-    }
-    static QString VideoQualityToGifPaletteGenString(VideoQuality Quality)
-    {
-        QString outString;
-        switch (Quality) {
-        case VideoQuality::Q_Low:
-            outString = QString("max_colors=128");
-            break;
-        case VideoQuality::Q_Normal:
-            outString = QString("max_colors=128");
-            break;
-        case VideoQuality::Q_High:
-            outString = QString("max_colors=256");
-            break;
-        }
-
-        return outString;
-    }
 };
 
 #endif // QFFMPEGFUNCTIONLIB_H
