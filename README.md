@@ -31,6 +31,15 @@
 Distributed under the GNU GPL V3.0 License. See `LICENSE.txt` for more information.
 
 # Release log
+**Release 0.4**
+
+- Fixed issues with video resolution parameter was not properly applied if no crop was applied.
+- Fixed issues with missing FFMPEG dependency dlls.
+- Improved Quality settings (the 'Low' quality settings will now create files notably smaller with little loss).
+- Fully implemented transcoders are now available to use as an alternative of relying on ffmpeg.exe commands. Both types of transcoders should produce very similar results. See 'Use CMD transcoder' tickbox to enable or disable the use of CMD transcoders.
+
+**Note:** In this release, the MP4 transcoder is notably slower than its CMD counterpart, the quality of the output file is not affected.
+__________
 **Release 0.3**
 
 - GifClipper can now export the current edit as a MP4 video (all Export Settings still apply)
