@@ -3,7 +3,7 @@
 REM Enable Delayed Variable Expansion
 SETLOCAL ENABLEDELAYEDEXPANSION
 
-REM Check project executable
+REM === 1. Packaging settings ===
 set PROJECT=GifClipper
 set DIR_PROJECT=%~dp0
 set DIR_LICENCE=%DIR_PROJECT%LICENCE.md
@@ -18,6 +18,7 @@ IF exist "%DIR_EXE%" (
     exit /b
 )
 
+REM === 2. Prepare the output folder ===
 REM Ask the user for build number
 set /p BUILD_NUMBER="Please enter build number (ex: 0,1, 5, 150): "
 
@@ -46,15 +47,24 @@ mkdir "%DIR_DEPLOY%"
 cd /d "%DIR_DEPLOY%"
 echo "Deploy directory created."
 
-REM Copying executable, readme, licence and external lib files to package folder
+REM === 3. Copy package files in output ===
 copy "%DIR_EXE%" "%DIR_DEPLOY%"
 copy "%DIR_README%" "%DIR_DEPLOY%"
 copy "%DIR_LICENCE%" "%DIR_DEPLOY%"
+
+REM Copy FFMPEG's binaries and dll dependencies
 xcopy /E /I "%DIR_PROJECT%QFFmpeg\ffmpeg-5.1.2-full_build-shared\bin" "%DIR_DEPLOY%"
+for /R "%DIR_PROJECT%QFFmpeg\ffmpeg-5.1.2-full_build-shared\lib\" %%f in (*.dll) do (
+    echo "%%f"
+    copy "%%f" "%DIR_DEPLOY%"
+)
+
 echo "Copied executable and external libs"
 
-REM Run windeployqt to deploy Qt stuff
-windeployqt.exe GifClipper.exe --no-translations
+REM === 4. Run windeployqt to deploy Qt stuff ===
+windeployqt.exe --qmldir "%appdata%\..\Local\Qt\6.5.0\mingw_64\bin" GifClipper.exe --no-translations
 echo "Finished deploying with windeployqt."
 cd /d %DIR_PROJECT%
+
+
 pause
